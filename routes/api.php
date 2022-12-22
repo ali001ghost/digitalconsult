@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ConsultingController;
+use App\Http\Controllers\ExpDayController;
 use App\Http\Controllers\ExperinceController;
+use App\Models\ExpDay;
 use App\Models\Experince;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +27,9 @@ Route::post('login',[AuthController::class,'login']);
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('experince', [ExperinceController::class, 'store']);
+    Route::post('user', [UserController::class, 'storeWallet']);
+    Route::post('user/update', [UserController::class, 'updateWallet']);
+    Route::post('expday/add', [ExpDayController::class, 'store']);
 });
-  Route::post('user', [UserController::class, 'store']);
+ // Route::post('user', [UserController::class, 'store']);
   Route::post('consulting', [ConsultingController::class, 'store']);

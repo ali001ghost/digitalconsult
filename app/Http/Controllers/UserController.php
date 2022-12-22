@@ -9,6 +9,25 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function storeWallet(Request $request)
+    {
+        $result = User::query()->where('id',Auth::user()->id)->create(
+            [  'id' => Auth::user()->id,
+              'bag' => $request -> bag,
+              'name' => Auth::user()->name,
+              'phone' => Auth::user()->phone,
+              'role' => Auth::user()->role,
+              'password' => Auth::user()->password,
+            ]
+        );
+
+    }
+
+
+
+
+
+
     public function updateWallet(Request $request)
     {
         $result = User::query()->where('id',Auth::user()->id)->update(
@@ -20,4 +39,5 @@ class UserController extends Controller
         );
 
     }
+
 }

@@ -9,7 +9,7 @@ class ExpDay extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['day','from_hour','to_hour','notes'];
+    protected $fillable = ['day','from_hour','to_hour','notes','user_id'];
     public function costumerDates()
     {
 
