@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consulting;
 use App\Models\ExpConsulting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExpConsultingController extends Controller
 {

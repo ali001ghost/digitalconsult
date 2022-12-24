@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\ConsultingController;
 use App\Http\Controllers\ExpDayController;
 use App\Http\Controllers\ExperinceController;
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('addExperince', [ExperinceController::class, 'store']);
     Route::post('addConsulting', [ExpConsultingController::class, 'store']);
     Route::post('upload_image',[UserController::class,'uploadImg']);
+    Route::post('addresses',[AddressesController::class,'store']);
 });
  // Route::post('user', [UserController::class, 'store']);
   Route::post('consulting', [ConsultingController::class, 'store']);
