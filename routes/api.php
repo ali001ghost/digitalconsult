@@ -8,6 +8,7 @@ use App\Models\Experince;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExpConsultingController;
 use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('user/update', [UserController::class, 'updateWallet']);
     Route::post('expday/add', [ExpDayController::class, 'store']);
     Route::post('addExperince', [ExperinceController::class, 'store']);
-    Route::post('addConsulting', [ExpConsultingController::class, 'store']);
+   Route::post('addConsulting', [ExpConsultingController::class, 'store']);
     Route::post('upload_image',[UserController::class,'uploadImg']);
 });
  // Route::post('user', [UserController::class, 'store']);
@@ -38,7 +39,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
   Route::post('deleteUser',[AuthController::class, 'deleteUser']);
   Route::get('getAllConsulting',[ConsultingController::class,'getAllConsulting']);
-
+  Route::post('getExperts', [ExpConsultingController::class, 'getExperts']);
 
 
 

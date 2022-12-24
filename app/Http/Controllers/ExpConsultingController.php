@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ExpConsulting;
+use App\Models\Consulting;
 use Illuminate\Http\Request;
-
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 class ExpConsultingController extends Controller
 {
     // public function store(Request $request)
@@ -13,9 +15,11 @@ class ExpConsultingController extends Controller
     //         'Co' => $request -> Consulting_name
     //       ]);
     // }
+
+
     // add consulting to the login expert
     public function store(Request $request){
-        $cons=Consulting::query()->where('name',$request->name)->first('id');
+        $cons=Consulting::query()->where('id',$request->id)->first('id');
         $result = ExpConsulting::query()->create([
             'user_id'=>Auth::user()->id,
             'consulting_id'=>$cons->id
@@ -28,7 +32,8 @@ class ExpConsultingController extends Controller
     }
 
     // get all the experts to the certain consult
-    public function getExpert(){
-
+    public function getExperts(Request $request){
+        $cons=Consulting::query()->where('name',$request->name)->first('id');
+           return $cons;
     }
 }
