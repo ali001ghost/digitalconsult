@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Consulting;
 use App\Models\ExpConsulting;
-use App\Models\Consulting;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
+
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-=======
-use Illuminate\Support\Facades\Auth;
 
->>>>>>> ebec3537290d3f6726ea9f487d48e930dfb70f78
+
+
 class ExpConsultingController extends Controller
 {
     // public function store(Request $request)
