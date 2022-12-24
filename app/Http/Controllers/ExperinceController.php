@@ -11,12 +11,19 @@ class ExperinceController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string',
+            'description'=>'required|string|max:512'
+        ]);
         Experince::query()->create([
             'name' => $request -> name,
             'description' => $request -> description,
             'user_id' => Auth::user()->id
           ]);
-
-        return response()->json('success', 200);
+        return response()->json([
+            'message'=>'success',
+            'name of experience'=>$request->name,
+            'description'=>$request->description,
+        ], 200);
     }
 }

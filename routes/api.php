@@ -26,10 +26,20 @@ Route::post('login',[AuthController::class,'login']);
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('experince', [ExperinceController::class, 'store']);
     Route::post('user', [UserController::class, 'storeWallet']);
     Route::post('user/update', [UserController::class, 'updateWallet']);
     Route::post('expday/add', [ExpDayController::class, 'store']);
+    Route::post('addExperince', [ExperinceController::class, 'store']);
+    Route::post('addConsulting', [ExpConsultingController::class, 'store']);
+    Route::post('upload_image',[UserController::class,'uploadImg']);
 });
  // Route::post('user', [UserController::class, 'store']);
   Route::post('consulting', [ConsultingController::class, 'store']);
+
+  Route::post('deleteUser',[AuthController::class, 'deleteUser']);
+  Route::get('getAllConsulting',[ConsultingController::class,'getAllConsulting']);
+
+
+
+
+

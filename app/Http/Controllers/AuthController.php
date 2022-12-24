@@ -17,60 +17,15 @@ use Illuminate\Validation\Validator;
 
 class AuthController extends Controller
 {
-    // public function register(Request $request){
-    //    $filds= $request->validate(
-    //         [
-    //             'name'=>['required','string','max:55'],
-    //             'phone'=>['required','string','unique:users'],
-    //             'role'=>['required','in:costumer,Expert'],
-    //             'password'=>['required','confirmed' ]
-    //         ]
-    //     );
-    //     $user=User::query()->create([
-    //         'name'=>$request->name,
-    //         'phone'=>$request->phone,
-    //         'role'=>$request->role,
-    //         'password'=> bcrypt($request->password)
-    //     ]);
-
-    //     if(!$user){
-    //          return response()->json([
-    //             'message'=>'register faild'
-    //          ]);
-    //     }
-
-    //     $token=$user->createToken('authToken')->plainTextToken;
-    // //    return auth()->user()->createToken('authToken')->accesstoken;
-    //     $user['remember_token']=$token;
-    //     return response()->json([
-    //     "message"=>"register created successfully",
-    //     "token"=>$token,
-    //     "user"=>$user
-    //      ],200);
-
-    // }
-
-
-    // public function login(Request $request){
-
-    //     if (!auth()->attempt($request->only('phone','password'))){
-    //         return response()->json([
-    //             "error"=>"  invaled login details"
-    //          ],401);
-    //     }
-    //     $user=User::where('phone',$request['phone'])->firstOrFail();
-    //      $token=$user->createToken('authToken');
-    //      $user['remember_token']=$token;
-    //     return response()->json([
-    //            'message'=>" login successfully",
-    //            'token'=>$token,
-    //            'user'=>$user
-    //     ],200);
-
-    // }
-
     public function register(Request $request){
-
+        $request->validate(
+                     [
+                         'name'=>['required','string','max:55'],
+                         'phone'=>['required','string','unique:users'],
+                        'role'=>['required','in:costumer,Expert'],
+                        'password'=>['required','confirmed' ]
+                     ]
+                 );
                 $user = User::query()->create([
                     'name'=>$request->name,
                     'phone'=>$request->phone,
@@ -107,6 +62,10 @@ class AuthController extends Controller
 
     public function logout(Request $request){
         $request->user()->token()->delete();
+        return response()->json([
+            'message'=>"logged out successfully"
+
+        ],200);
     }
 
     public function deleteUser(User $user){
@@ -114,18 +73,6 @@ class AuthController extends Controller
             $user->delete();
         }
     }
-
-
-    // public function logout()
-    // {
-    //     $user= Auth::user()->token();
-    //     $user->revoke();
-    //     // 'user_id' => Auth::user()->id();
-
-    //     return response()->json([
-    //         'message' => 'successfully logged out'],200);
-
-    // }
 }
 
 

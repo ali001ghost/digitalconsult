@@ -16,7 +16,7 @@ class CreateExpConsultingsTable extends Migration
         Schema::create('exp_consultings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('consultings_id')->constrained('consultings')->cascadeOnDelete();
+            $table->foreignId('consulting_id')->constrained('consultings')->cascadeOnDelete();
             $table->integer('price');
             $table->timestamps();
         });

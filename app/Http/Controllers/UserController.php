@@ -40,4 +40,21 @@ class UserController extends Controller
 
     }
 
+    public function uploadImg(Request $request ){
+        $request->validate([
+            'image' => 'required|mimes:jpg,jpeg,png,bmp'
+        ]);
+        $image = $request->file('image');
+        if($request->hasFile('image')){
+            $image = time() . '.' . $request->image->getClientOriginalExtension();
+        $request->image->move(public_path('images'), $image);
+         }
+         $user = User::where('id',Auth::user()->id)->update(['image'=>$image]);
+         return response ()->json([
+            'message'=>'successfully',
+            'user'=>$user,
+            'image'=>$image
+         ]);
+    }
+
 }
