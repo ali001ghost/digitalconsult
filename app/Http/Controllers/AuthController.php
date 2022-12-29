@@ -12,20 +12,37 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\Passport;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\validator;
+//use Illuminate\Validation\Validator;
 
 
 class AuthController extends Controller
 {
     public function register(Request $request){
-        $request->validate(
-                     [
-                         'name'=>['required','string','max:55'],
-                         'phone'=>['required','string','unique:users'],
-                        'role'=>['required','in:costumer,Expert'],
-                        'password'=>['required','confirmed' ]
-                     ]
-                 );
+        // $request->validate(
+        //              [
+        //                  'name'=>['required','string','max:55'],
+        //                  'phone'=>['required','string','unique:users'],
+        //                 'role'=>['required','in:costumer,Expert'],
+        //                 'password'=>['required','confirmed' ]
+        //              ]
+        //          );
+
+
+
+
+        $validator =Validator::make($request->all() ,[
+            'name'=>['required','string','max:55'],
+                          'phone'=>['required','string','unique:users'],
+                          'role'=>['required','in:Customer,Expert'],
+                            'password'=>['required','confirmed' ]
+        ]);
+        if($validator->fails()  ){
+                        return response()->json([
+                            'mesaage'=>'an error occurred ',
+                            'error'=>$validator->errors()->all()
+                        ],422);
+                   }
                 $user = User::query()->create([
                     'name'=>$request->name,
                     'phone'=>$request->phone,
@@ -37,16 +54,22 @@ class AuthController extends Controller
 
                 $data['user']=$user;
                 $data['type']='Bearer';
-                $data['token']=$token->accessToken;
+                $data['token']=$token->accessToken ;
 
-                return response()->json($data,200);
+                return response()->json([
+                    'mesaage'=>'successfuly',
+                    'data'=>$data
+                ],200);
             }
 
 
     public function login(Request $request){
         $credentials = request(['phone', 'password']);
         if (!Auth::attempt($credentials)){
-            throw new AuthenticationException();
+            return response()->json([
+                'message'=>'an error occured',
+                'error'=> ' the phone or the password is wrong'
+            ],422);
         }
 
         $user = $request->user();
@@ -56,7 +79,11 @@ class AuthController extends Controller
         $data['type']='Bearer';
         $data['token']=$token->accessToken;
 
-        return response()->json($data, 200);
+        return response()->json( [
+           'message'=>'succsse',
+           'data'=>$data
+
+        ], 200);
 
     }
 

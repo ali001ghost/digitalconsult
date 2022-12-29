@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('user/update', [UserController::class, 'updateWallet']);
     Route::post('expday/add', [ExpDayController::class, 'store']);
     Route::post('addExperince', [ExperinceController::class, 'store']);
-   Route::post('addConsulting', [ExpConsultingController::class, 'store']);
+   Route::post('addConsulting', [ConsultingController::class, 'store']);
     Route::post('upload_image',[UserController::class,'uploadImg']);
     Route::post('addresses',[AddressesController::class,'store']);
 });
@@ -41,8 +41,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
   Route::post('deleteUser',[AuthController::class, 'deleteUser']);
   Route::get('getAllConsulting',[ConsultingController::class,'getAllConsulting']);
-  Route::post('getExperts', [ExpConsultingController::class, 'getExperts']);
+  Route::get('getExperts', [ConsultingController::class, 'getExperts']);
 
-
-
+Route::get('searchForExpert',[UserController::class,'searchForExpert']);
+Route::get('searchForCons',[UserController::class,'searchForCons']);
 

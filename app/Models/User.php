@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    
+
     protected $fillable=['role','name','image','password','phone','bag'];
 
     public function address()
@@ -35,9 +35,9 @@ class User extends Authenticatable
         return $this->hasMany(UserDate::class);
     }
 
-    public function consulting_expert()
+    public function consultings()
     {
-        return $this->belongsToMany(Exp_Consulting::class);
+        return $this->belongsToMany(Consulting::class);
     }
     /**
      * The attributes that should be hidden for serialization.

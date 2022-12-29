@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Consulting extends Model
 {
     use HasFactory;
+   // protected $table ='consultings';
+    protected $fillable=['name','id'];
 
-    protected $fillable=['name'];
-
-    public function consultingExpert()
+    public function experts()
     {
-        return $this->belongsToMany(ExpConsulting::class);
+        return $this->belongsToMany(User::class);
     }
 }
 
