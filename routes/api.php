@@ -33,8 +33,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('expday/add', [ExpDayController::class, 'store']);
     Route::get('expday/add', [ExpDayController::class, 'show']);
     Route::post('addExperince', [ExperinceController::class, 'store']);
+<<<<<<< HEAD
     Route::get('exp', [ExperinceController::class, 'store']);
    Route::post('addConsulting', [ExpConsultingController::class, 'store']);
+=======
+   Route::post('addConsulting', [ConsultingController::class, 'store']);
+>>>>>>> 7a70362b8110fd9d8b8217198227ef501ed8b576
     Route::post('upload_image',[UserController::class,'uploadImg']);
     Route::post('addresses',[AddressesController::class,'store']);
     Route::get('getExperts', [ExpConsultingController::class, 'getExperts']);
@@ -45,8 +49,14 @@ Route::group(['middleware' => 'auth:api'], function () {
 
   Route::post('deleteUser',[AuthController::class, 'deleteUser']);
   Route::get('getAllConsulting',[ConsultingController::class,'getAllConsulting']);
+<<<<<<< HEAD
 
 
 
+=======
+  Route::get('getExperts', [ConsultingController::class, 'getExperts']);
+>>>>>>> 7a70362b8110fd9d8b8217198227ef501ed8b576
 
+Route::get('searchForExpert',[UserController::class,'searchForExpert']);
+Route::get('searchForCons',[UserController::class,'searchForCons']);
 

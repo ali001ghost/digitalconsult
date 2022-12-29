@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Consulting;
 use GrahamCampbell\ResultType\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,11 +23,6 @@ class UserController extends Controller
         );
 
     }
-
-
-
-
-
 
     public function updateWallet(Request $request)
     {
@@ -55,6 +51,45 @@ class UserController extends Controller
             'user'=>$user,
             'image'=>$image
          ]);
+
+    }
+
+    // search
+    public function searchForExpert(Request $request){
+        $query=User::query()->select('id','name','image','role' )->orderBy('id');
+        $columns=['name'];
+        foreach($columns as $column){
+            $query->orWhere($column,'LIKE','%'.$request->name.'%')->where('role','Expert');
+        }
+        if($query->count()){
+            $expert=$query->get();
+            return response() ->json([
+                'message'=>'successe',
+                'name'=>$expert
+            ],200);
+        }
+        else return response() ->json([
+            'message'=>'No Results Found'
+        ],422);
+
+    }
+
+    public function searchForCons(Request $request){
+        $query=Consulting::query()->select('id','name' )->orderBy('id');
+        $columns=['name'];
+        foreach($columns as $column){
+            $query->orWhere($column,'LIKE','%'.$request->name.'%');
+        }
+        if($query->count()){
+            $cons=$query->get();
+            return response() ->json([
+                'message'=>'successe',
+                'name'=>$cons
+            ],200);
+        }
+        else return response() ->json([
+            'message'=>'No Results Found'
+        ],422);
     }
 
 }
