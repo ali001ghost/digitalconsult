@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Consulting;
+use App\Models\Consulting_User;
 use App\Models\ExpConsulting;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,7 @@ class ExpConsultingController extends Controller
     // add consulting to the login expert
     public function store(Request $request){
         $cons=Consulting::query()->where('id',$request->id)->first('id');
-        $result = ExpConsulting::query()->create([
+        $result = Consulting_User::query()->create([
             'user_id'=>Auth::user()->id,
             'consulting_id'=>$cons->id
         ]);
