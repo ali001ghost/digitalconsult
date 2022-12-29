@@ -24,7 +24,7 @@ class ExpConsultingController extends Controller
 
     // add consulting to the login expert
     public function store(Request $request){
-        $cons=Consulting::query()->where('id',$request->id)->first('id');
+        //$cons=Consulting::query()->where('id',$request->id)->first('id');
         $result = Consulting_User::query()->create([
             'user_id'=>Auth::user()->id,
             'consulting_id'=>$request->id
