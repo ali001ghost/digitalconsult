@@ -19,4 +19,18 @@ class ExpDayController extends Controller
             'user_id' => Auth::user()->id,
         ]);
     }
+
+
+
+    public function show(Request $request)
+    {
+        $result = ExpDay::query()->get(['day','from_hour','to_hour','notes'
+
+
+        ]);
+        return $result;
+    }
+
+
+
 }

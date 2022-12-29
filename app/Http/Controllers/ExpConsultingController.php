@@ -37,7 +37,8 @@ class ExpConsultingController extends Controller
 
     // get all the experts to the certain consult
     public function getExperts(Request $request){
-        $cons=Consulting::query()->where('name',$request->name)->first('id');
-           return $cons;
+        $cons=Consulting::query()->where('id',$request->id)->get('name');
+
+        return $cons;
     }
 }
