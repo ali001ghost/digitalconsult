@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Consulting;
 use App\Models\Consulting_User;
+use App\Models\ExpConsulting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

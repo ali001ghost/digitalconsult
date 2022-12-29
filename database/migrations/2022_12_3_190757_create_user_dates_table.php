@@ -17,9 +17,12 @@ class CreateUserDatesTable extends Migration
         Schema::create('user_dates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('consulting_id')->constrained('consultings')->cascadeOnDelete();
-            $table->foreignId('exp_days_id')->constrained('exp_days')->cascadeOnDelete();
-            $table->integer('hour');
+            $table->foreignId('consulting_user_id')->constrained('consulting_users')->cascadeOnDelete();
+            $table->dateTime("date");
+
+
+            // $table->foreignId('exp_days_id')->constrained('exp_days')->cascadeOnDelete();
+        
             $table->timestamps();
         });
     }
