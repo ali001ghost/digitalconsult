@@ -34,28 +34,30 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('user/update', [UserController::class, 'updateWallet']);
     Route::post('expday/add', [ExpDayController::class, 'store']);
     Route::get('expday/add', [ExpDayController::class, 'show']);
-    Route::post('addExperince', [ExperinceController::class, 'store']);
+    Route::get('getexperince', [ExperinceController::class, 'show']);
     Route::get('exp', [ExperinceController::class, 'store']);
    Route::post('addConsulting', [ExpConsultingController::class, 'store']);
-   Route::post('addConsulting', [ConsultingController::class, 'store']);
    Route::post('addexperince',[ExperinceController::class,'store']);
     Route::post('upload_image',[UserController::class,'uploadImg']);
     Route::post('addresses',[AddressesController::class,'store']);
+    Route::get('getaddress', [AddressesController::class, 'show']);
     Route::get('getExperts', [ExpConsultingController::class, 'getExperts']);
+    Route::get('getcons', [ConsultingController::class, 'getExperts']);
     Route::post('userdate', [UserDateController::class, 'store']);
+    Route::get('showdate', [UserDateController::class, 'show']);
     Route::put('pay', [PayController::class, 'pay']);
-    //Route::post('getExperts', [ExpConsultingController::class, 'getExperts']);
+    Route::get('info', [ExperinceController::class, 'showinfo']);
 });
  // Route::post('user', [UserController::class, 'store']);
   Route::post('consulting', [ConsultingController::class, 'store']);
 
   Route::post('deleteUser',[AuthController::class, 'deleteUser']);
-  Route::get('getAllConsulting',[ConsultingController::class,'getAllConsulting']);
+  Route::get('getAllConsulting',[ConsultingController::class,'showall']);
 
 
 
 
-Route::get('getExperts', [ConsultingController::class, 'getExperts']);
+//Route::get('getExperts', [ConsultingController::class, 'getExperts']);
 
 Route::get('searchForExpert',[UserController::class,'searchForExpert']);
 Route::get('searchForCons',[UserController::class,'searchForCons']);

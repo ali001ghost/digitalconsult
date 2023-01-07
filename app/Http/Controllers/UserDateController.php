@@ -17,7 +17,7 @@ class UserDateController extends Controller
 
 
         $result = UserDate::query()->create(
-            [  'user_id' => Auth::user()->id,
+            [  'user_id' => $request->user_id,
                 'consulting_user_id' => $expconsulting -> id,
                 'date'=> $request -> date,
             ]
@@ -25,5 +25,16 @@ class UserDateController extends Controller
         return response()->json([
             'message' => 'success',
         ], 200);
+    }
+
+    public function show(Request $request)
+    {
+        $userdate = UserDate::query()->where('user_id',Auth::user()->id)->get(['consulting_user_id','date']);
+        return response()->json([
+
+            'message' => 'success',
+            $userdate
+
+        ]);
     }
 }

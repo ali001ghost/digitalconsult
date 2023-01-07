@@ -26,7 +26,8 @@ class ExpConsultingController extends Controller
     public function store(Request $request){
         $result = Consulting_User::query()->create([
             'user_id'=>Auth::user()->id,
-            'consulting_id'=>$request->id
+            'consulting_id'=>$request->id,
+            'price'=>$request->price
         ]);
         return response()->json([
             'message'=>'success',
@@ -37,8 +38,10 @@ class ExpConsultingController extends Controller
 
     // get all the experts to the certain consult
     public function getExperts(Request $request){
-        $cons=Consulting::query()->where('id',$request->id)->get('name');
+        $cons=Consulting_User::query()->where('consulting_id',$request->consulting_id)->get(['user_id','price']);
 
-        return $cons;
+        return response()->json([
+            'message'=>'success',
+            $cons]) ;
     }
 }

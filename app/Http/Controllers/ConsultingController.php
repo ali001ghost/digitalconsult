@@ -24,12 +24,22 @@ class ConsultingController extends Controller
             'consulting_id'=>$cons
         ]);
     }
+
+public function showall(Request $request)
+{
+        $result = Consulting::query()->get(['id','name']);
+        return response()->json([
+            'message'=>'success',
+            'data'=>$result
+        ],200);
+}
+
         // get all the experts to the certain consult
   public function getExperts(Request $request){
     $id=$request->consulting_id;
         $experts = Consulting::
             whereHas('experts', function ($q) use ($request) {
-                $q->where('user_id', $request->expert_id); })->get();
+                $q->where('user_id', $request->expert_id); })->get([ 'id','name']);
     return response()->json([
         'message'=>'success',
         'data'=>$experts

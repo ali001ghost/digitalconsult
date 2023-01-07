@@ -39,6 +39,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Consulting::class,'consulting_users');
     }
+
+   
     /**
      * The attributes that should be hidden for serialization.
      *
