@@ -11,4 +11,14 @@ class Consulting_User extends Model
 
     protected $table='consulting_users';
     protected $fillable=['user_id','consulting_id','price'];
+
+
+    public function userdate()
+    {
+
+        return $this->hasMany(UserDate::class,'consulting_user_id');
+    }
+
+    
+
 }

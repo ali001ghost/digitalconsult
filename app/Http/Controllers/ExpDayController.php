@@ -24,7 +24,7 @@ class ExpDayController extends Controller
 
     public function show(Request $request)
     {
-        $result = ExpDay::query()->get(['day','from_hour','to_hour','notes'
+        $result = ExpDay::query()->where('user_id',$request->id)->get(['day','from_hour','to_hour','notes'
 
 
         ]);

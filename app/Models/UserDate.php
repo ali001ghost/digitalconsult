@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserDate extends Model
 {
+
+    protected $fillable = ['consulting_user_id','user_id','date'];
     use HasFactory;
 
     public function user()
@@ -19,5 +21,17 @@ class UserDate extends Model
     {
 
         return $this->belongsTo(ExpDay::class);
+
+
     }
+
+    public function consultingUser()
+    {
+
+        return $this->belongsTo(Consulting_User::class,'consulting_user_id');
+    }
+
+
+
+
 }

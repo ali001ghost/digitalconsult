@@ -4,6 +4,8 @@ use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\ConsultingController;
 use App\Http\Controllers\ExpDayController;
 use App\Http\Controllers\ExperinceController;
+use App\Http\Controllers\PayController;
+use App\Http\Controllers\UserDateController;
 use App\Models\ExpDay;
 use App\Models\Experince;
 use Illuminate\Http\Request;
@@ -36,10 +38,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('exp', [ExperinceController::class, 'store']);
    Route::post('addConsulting', [ExpConsultingController::class, 'store']);
    Route::post('addConsulting', [ConsultingController::class, 'store']);
-
+   Route::post('addexperince',[ExperinceController::class,'store']);
     Route::post('upload_image',[UserController::class,'uploadImg']);
     Route::post('addresses',[AddressesController::class,'store']);
     Route::get('getExperts', [ExpConsultingController::class, 'getExperts']);
+    Route::post('userdate', [UserDateController::class, 'store']);
+    Route::put('pay', [PayController::class, 'pay']);
     //Route::post('getExperts', [ExpConsultingController::class, 'getExperts']);
 });
  // Route::post('user', [UserController::class, 'store']);

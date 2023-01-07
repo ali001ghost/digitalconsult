@@ -27,7 +27,9 @@ class ConsultingController extends Controller
         // get all the experts to the certain consult
   public function getExperts(Request $request){
     $id=$request->consulting_id;
-    $experts=Consulting::with('experts')->where('id',$id)->get();
+        $experts = Consulting::
+            whereHas('experts', function ($q) use ($request) {
+                $q->where('user_id', $request->expert_id); })->get();
     return response()->json([
         'message'=>'success',
         'data'=>$experts
