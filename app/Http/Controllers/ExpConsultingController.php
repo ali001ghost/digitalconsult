@@ -38,10 +38,10 @@ class ExpConsultingController extends Controller
 
     // get all the experts to the certain consult
     public function getExperts(Request $request){
-        $cons=Consulting_User::query()->where('consulting_id',$request->consulting_id)->get(['user_id','price']);
+        $cons=Consulting_User::query()->with('user')->where('consulting_id',$request->consulting_id)->get();
 
         return response()->json([
             'message'=>'success',
-            $cons]) ;
+           'data' => $cons]) ;
     }
 }

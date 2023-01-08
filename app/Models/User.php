@@ -27,7 +27,7 @@ class User extends Authenticatable
 
     public function experince()
     {
-        return $this->hasMany(Experince::class);
+        return $this->hasMany(Experince::class,);
     }
 
     public function costumer_date()
@@ -37,10 +37,11 @@ class User extends Authenticatable
 
     public function consultings()
     {
-        return $this->belongsToMany(Consulting::class,'consulting_users');
+        return $this->belongsToMany(Consulting::class,'consulting_users','user');
     }
+    
 
-   
+
     /**
      * The attributes that should be hidden for serialization.
      *

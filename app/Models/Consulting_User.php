@@ -19,6 +19,10 @@ class Consulting_User extends Model
         return $this->hasMany(UserDate::class,'consulting_user_id');
     }
 
-    
+    public function user()
+    {
+
+        return $this->belongsTo(User::class,'user_id');
+    }
 
 }
