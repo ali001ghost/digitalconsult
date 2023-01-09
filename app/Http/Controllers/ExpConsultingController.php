@@ -42,6 +42,6 @@ class ExpConsultingController extends Controller
 
         return response()->json([
             'message'=>'success',
-           'data' => $cons]) ;
+           'data' =>$cons]) ;
     }
 }

@@ -13,7 +13,8 @@ class PayController extends Controller
     public function pay(Request $request)
     {
         $result = UserDate::query()->where('id', $request->id)
-            ->with('consultingUser')->first();
+            ->where('user_id',Auth::user()->id)
+            ->with('consultingUser')->firstOrFail();
 
         if ($request->price != $result->consultingUser->price) {
 
@@ -28,6 +29,12 @@ class PayController extends Controller
 
         $user = User::find(Auth::user()->id);
         $bag = $user->bag;
+        if ($request->price > $bag) {
+            return response()->json([
+                'message' => 'error'
+            ], 400);
+
+        }
         $user->update([
             'bag' => $bag - $request->price,
         ]);

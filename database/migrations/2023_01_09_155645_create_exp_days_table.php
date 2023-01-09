@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExpDaysTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -17,8 +17,8 @@ class CreateExpDaysTable extends Migration
             $table->id();
             $table->enum('day',['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']);
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->integer('from_hour');
-            $table->integer('to_hour');
+            $table->time('from_hour')->format('h:i:00');
+            $table->time('to_hour')->format('h:i:00');
             $table->string('notes');
             $table->timestamps();
         });
@@ -33,4 +33,4 @@ class CreateExpDaysTable extends Migration
     {
         Schema::dropIfExists('exp_days');
     }
-}
+};

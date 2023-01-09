@@ -18,6 +18,10 @@ class ExpDayController extends Controller
             'notes' => $request->notes,
             'user_id' => Auth::user()->id,
         ]);
+
+        return response()->json([
+            'message' => 'success'
+        ]);
     }
 
 

@@ -25,4 +25,10 @@ class Consulting_User extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function consulting()
+    {
+
+        return $this->belongsTo(Consulting::class,'consulting_id');
+    }
+
 }

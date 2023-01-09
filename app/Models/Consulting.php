@@ -13,7 +13,7 @@ class Consulting extends Model
 
     public function experts()
     {
-        return $this->belongsToMany(User::class,'consulting_users','user');
+        return $this->belongsToMany(User::class,'consulting_users','user_id');
     }
 }
 
