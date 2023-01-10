@@ -30,50 +30,35 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::group(['middleware' => 'expert'], function () {
-        Route::post('addexperince', [ExperinceController::class, 'store']);
-
-    }
+    Route::group(
+        ['middleware' => 'expert'],
+        function () {
+            Route::post('addexperince', [ExperinceController::class, 'store']);
+            Route::post('upload_image', [UserController::class, 'uploadImg']);
+            Route::post('addresses', [AddressesController::class, 'store']);
+            Route::post('expday/add', [ExpDayController::class, 'store']);
+            Route::post('addConsulting', [ExpConsultingController::class, 'store']);
+        }
     );
 
     Route::post('logout', [AuthController::class, 'logout']);
-
-    Route::post('user', [UserController::class, 'storeWallet']);
-    Route::post('user/update', [UserController::class, 'updateWallet']);
-    Route::post('upload_image', [UserController::class, 'uploadImg']);
+    Route::get('getAllConsulting', [ConsultingController::class, 'showall']);
+    Route::get('getExperts', [ExpConsultingController::class, 'getExperts']);
+    Route::get('searchForCons', [UserController::class, 'searchForCons']);
+    Route::get('searchForExpert', [UserController::class, 'searchForExpert']);
     Route::post('userdate', [UserDateController::class, 'store']);
+    Route::get('expday', [ExpDayController::class, 'show']);
     Route::get('reservation', [UserDateController::class, 'reservation']);
+    Route::post('user/update', [UserController::class, 'updateWallet']);
+    Route::post('pay', [PayController::class, 'pay']);
+    Route::get('exp-reservation',[UserController::class,'expReservation']);
 
 
-    Route::post('expday/add', [ExpDayController::class, 'store']);
-    Route::get('expday/add', [ExpDayController::class, 'show']);
 
     Route::get('getexperince', [ExperinceController::class, 'show']);
-        Route::get('info', [ExperinceController::class, 'showinfo']);
-
-
-
-    Route::post('addConsulting', [ExpConsultingController::class, 'store']);
-    Route::get('getExperts', [ExpConsultingController::class, 'getExperts']);
-
-
-    Route::post('addresses', [AddressesController::class, 'store']);
+    Route::get('info', [ExperinceController::class, 'showinfo']);
     Route::get('getaddress', [AddressesController::class, 'show']);
-
     Route::get('getcons', [ConsultingController::class, 'getExperts']);
-    Route::post('consulting', [ConsultingController::class, 'store']);
-    Route::get('getAllConsulting', [ConsultingController::class, 'showall']);
-
-
-    Route::post('pay', [PayController::class, 'pay']);
-
-
     Route::post('deleteUser', [AuthController::class, 'deleteUser']);
-
 });
-// Route::post('user', [UserController::class, 'store']);
 
-//Route::get('getExperts', [ConsultingController::class, 'getExperts']);
-
-Route::get('searchForExpert', [UserController::class, 'searchForExpert']);
-Route::get('searchForCons', [UserController::class, 'searchForCons']);

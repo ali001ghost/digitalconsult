@@ -11,24 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ConsultingController extends Controller
 {
-    // add consulting to the login expert
-    public function store(Request $request)
-    {
-        $cons = Consulting::query()->where('id', $request->id)->first('id');
-        $result = Consulting_User::query()->create([
-            'user_id' => Auth::user()->id,
-            'consulting_id' => $cons->id
-        ]);
-        return response()->json([
-            'message' => 'success',
-            'user_id' => Auth::user()->id,
-            'consulting_id' => $cons
-        ]);
-    }
 
     public function showall(Request $request)
     {
-        $result = Consulting::query()->get(['id', 'name']);
+        $result = Consulting::query()->get();
         return response()->json([
             'message' => 'success',
             'data' => $result

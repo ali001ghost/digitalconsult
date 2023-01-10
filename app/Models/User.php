@@ -17,6 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table= 'users';
 
     protected $fillable=['role','name','image','password','phone','bag'];
 
@@ -32,12 +33,17 @@ class User extends Authenticatable
 
     public function costumer_date()
     {
-        return $this->hasMany(UserDate::class);
+        return $this->hasMany(UserDate::class,'user_id');
     }
 
     public function consultings()
     {
-        return $this->belongsToMany(Consulting::class,'consulting_users','user');
+        return $this->belongsToMany(Consulting::class,'consulting_users','user_id');
+    }
+
+    public function expDays()
+    {
+        return $this->hasMany(ExpDay::class,'user_id');
     }
     
 
@@ -50,6 +56,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'phone',
+        'role'
     ];
 
     /**

@@ -12,15 +12,17 @@ class PayController extends Controller
 {
     public function pay(Request $request)
     {
-        $result = UserDate::query()->where('id', $request->id)
-            ->where('user_id',Auth::user()->id)
-            ->with('consultingUser')->firstOrFail();
+        $result = UserDate::query()
+            ->where('id', $request->reservation_id)
+            ->where('user_id', Auth::user()->id)
+            ->with('consultingUser')
+            ->firstOrFail();
 
         if ($request->price != $result->consultingUser->price) {
 
             return response()->json(
                 [
-                    'message' => 'Error',
+                    'message' => 'reservation price didnt match with this amount',
                 ],
                 403
             );
@@ -31,9 +33,8 @@ class PayController extends Controller
         $bag = $user->bag;
         if ($request->price > $bag) {
             return response()->json([
-                'message' => 'error'
+                'message' => 'you dont have enough money'
             ], 400);
-
         }
         $user->update([
             'bag' => $bag - $request->price,
@@ -50,9 +51,5 @@ class PayController extends Controller
             'message' => 'Success'
 
         ], 200);
-
-
     }
-
-
 }

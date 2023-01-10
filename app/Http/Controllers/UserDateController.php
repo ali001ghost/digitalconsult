@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Consulting_User;
 use App\Models\ExpDay;
+use App\Models\User;
 use App\Models\UserDate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -20,12 +22,24 @@ class UserDateController extends Controller
 
         $expconsulting = Consulting_User::query()
             ->where('consulting_id', $request->consulting_id)
-            ->where('user_id', $request->user_id)->firstOrFail('id');
+            ->where('user_id', $request->user_id)->firstOrFail();
 
+        $exp = Consulting_User::query()
+            ->where('user_id', $request->user_id)
+            ->whereHas('userdate', function ($q) use ($request) {
+                $q->whereBetween('date', [Carbon::parse($request->date)->subMinutes(15), $request->date]);
+            })
+            ->exists();
+
+        if ($exp) {
+            return response()->json([
+                'message' => 'this date already reserved',
+            ], 400);
+        }
 
         $result = UserDate::query()->create(
             [
-                'user_id' =>Auth::user()->id,
+                'user_id' => Auth::user()->id,
                 'consulting_user_id' => $expconsulting->id,
                 'date' => $request->date,
             ]
@@ -64,14 +78,16 @@ class UserDateController extends Controller
 
     public function reservation(Request $request)
     {
-        $result = DB::table('exp_days')
-            ->join('consulting_users', 'consulting_users.user_id', 'exp_days.user_id')
-            ->join('user_dates', 'user_dates.consulting_user_id', 'consulting_users.id')
-            ->where('exp_days.user_id', $request->exp_id)
-            ->where('consulting_users.consulting_id', $request->consulting_id)
+        $result = User::where('id', $request->exp_id)
+            ->with('consultings',function($q){
+                $q->with('expResevedDate');
+            })
+            ->with('expDays')
             ->get();
 
-        return $result;
-
+        return response()->json([
+            'message' => 'success',
+            'data' =>  $result
+        ]);
     }
 }

@@ -17,13 +17,13 @@ class UserDate extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function expday()
-    {
+    // public function expday()
+    // {
 
-        return $this->belongsTo(ExpDay::class);
+    //     return $this->belongsTo(ExpDay::class);
 
 
-    }
+    // }
 
     public function consultingUser()
     {
