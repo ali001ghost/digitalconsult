@@ -13,6 +13,11 @@ class UserDateController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'consulting_id' => 'required|exists:consultings,id',
+            'user_id' => 'required|exists:users,id'
+        ]);
+
         $expconsulting = Consulting_User::query()
             ->where('consulting_id', $request->consulting_id)
             ->where('user_id', $request->user_id)->firstOrFail('id');
